@@ -12,60 +12,119 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+$dadosalunos = array(
+    "Marcos Aurélio",
+    "Maria Cláudia",
+     "João Pedro"
+);
+
+
 
 Route::get('/', function () {
 
     return view('welcome');
 });
 
-
-Route::get('/aluno/{total}', function ($total) {
-    $dados = array(
-        "Carlos Eduardo",
-        "Maria Cláudia",
-        "João Pedro"
-    );
+Route::get('/aluno', function() {
+   
     $alunos = "<ul>";
-    if ($total <= count($dados)) {
+        foreach ($dadosalunos as $nome) {
+            $alunos .= "<li>$nome</li>";
+            $cont++;
+            if ($cont >= count($dadosalunos)){
+                break;
+            }
+                
+        }
+    $alunos .= "<li>$nome</li>";
+    return $alunos;
+});
+
+Route::get('/aluno/limite/{total}', function ($total) {
+   
+    $alunos = "<ul>";
+    if ($total <= count($dadosalunos)) {
         $cont = 0;
-        foreach ($dados as $nome) {
+        foreach ($dadosalunos as $nome) {
             $alunos .= "<li>$nome</li>";
             $cont++;
             if ($cont >= $total)
                 break;
         }
     } else {
-        $alunos = $alunos . "<li>Tamanho Máximo = " . count($dados) . "</li>";
+        $alunos = $alunos . "<li>Tamanho Máximo = " . count($dadosalunos) . "</li>";
     }
     $alunos .= "</ul>";
     return $alunos;
 });
 
-Route::get('/racas/{total}/{raca?}/', function ($total, $raca = null) {
-    $dados = array(
-        "Bulldog Inglês",
-        "Labrador",
-        "Pastor Alemão",
-        "Akita"
-    );
-    $pets = "<ul>";
-    if ($raca == null) {
-        if ($total <= count($dados)) {
-            $cont = 0;
-            foreach ($dados as $item) {
-                $pets .= "<li>$item</li>";
-                $cont++;
-                if ($cont >= $total)
-                    break;
+Route::get('/aluno/matricula/{matricula}', function ($index) {
+       
+    $aluno = $dadosalunos[$index];
+    return $aluno;
+    
+});
+
+Route::get('/aluno/nome/{procura}', function ($procura) {
+   
+    
+        foreach ($dadosalunos as $nome) {
+           if($nome==$procura){
+                break;
+           };
+        };
+
+    return $nome;
+});
+
+Route::get('/nota', function() {
+   
+    $notas = "<ul>";
+        foreach ($dadosalunos as $nome) {
+            $alunos .= "<li>$nome</li>";
+            $cont++;
+            if ($cont >= count($dadosalunos)){
+                break;
             }
-        } else {
-            $pets .= "<li>Tamanho Máximo = " . count($dados) . "</li>";
+                
+        }
+    $alunos .= "<li>$nome</li>";
+    return $alunos;
+});
+
+Route::get('/aluno/limite/{total}', function ($total) {
+   
+    $alunos = "<ul>";
+    if ($total <= count($dadosalunos)) {
+        $cont = 0;
+        foreach ($dadosalunos as $nome) {
+            $alunos .= "<li>$nome</li>";
+            $cont++;
+            if ($cont >= $total)
+                break;
         }
     } else {
-        for ($cont = 0; $cont < $total; $cont++) {
-            $pets .= "<li>$raca</li>";
-        }
+        $alunos = $alunos . "<li>Tamanho Máximo = " . count($dadosalunos) . "</li>";
     }
-    $pets .= "</ul>";
-    return $pets;
+    $alunos .= "</ul>";
+    return $alunos;
+});
+
+Route::get('/aluno/matricula/{matricula}', function ($index) {
+       
+    $aluno = $dadosalunos[$index];
+    return $aluno;
+    
+});
+
+Route::get('/aluno/nome/{procura}', function ($procura) {
+   
+    
+        foreach ($dadosalunos as $nome) {
+           if($nome==$procura){
+                break;
+           };
+        };
+
+    return $nome;
 });
